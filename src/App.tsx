@@ -6,6 +6,10 @@ import ProtectedRoute from './components/security/ProtectedRoute';
 import AdminLayout from './components/layout/AdminLayout';
 import AddCategory from './components/admin/AddCategory';
 import AddProduct from './components/admin/AddProduct';
+import ManageProducts from './components/admin/ManageProducts';
+import ManageCategories from './components/admin/ManageCategories';
+import AddDiscount from './components/admin/AddDiscount';
+import ManageDiscounts from './components/admin/ManageDiscounts';
 import './App.css';
 
 // Dashboard Home component
@@ -28,7 +32,11 @@ function App() {
             <Route element={<AdminLayout />}>
               <Route path="/" element={<DashboardHome />} />
               <Route path="/add-category" element={<AddCategory />} />
+              <Route path="/manage-categories" element={<ManageCategories />} />
               <Route path="/add-product" element={<AddProduct />} />
+              <Route path="/manage-products" element={<ManageProducts />} />
+              <Route path="/add-discount" element={<AddDiscount />} />
+              <Route path="/manage-discounts" element={<ManageDiscounts />} />
             </Route>
           </Route>
 

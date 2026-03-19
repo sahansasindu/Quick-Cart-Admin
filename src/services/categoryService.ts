@@ -1,9 +1,9 @@
 import api from './api';
 
 export const categoryService = {
-  findAllCategories: async (seachText?: string, page: number = 1, size: number = 10) => {
+  findAllCategories: async (searchText?: string, page: number = 1, size: number = 10) => {
     const response = await api.get('product-service-api/api/v1/categories/find-all-categories', {
-      params: { seachText, page, size }
+      params: { searchText, page, size }
     });
     return response.data;
   },
