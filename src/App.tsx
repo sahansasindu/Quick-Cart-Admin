@@ -13,7 +13,7 @@ import AddDiscount from './components/admin/AddDiscount';
 import ManageDiscounts from './components/admin/ManageDiscounts';
 import './App.css';
 
-// Dashboard Home component
+
 const DashboardHome = () => (
   <div className="dashboard-container">
     <h1>Admin Dashboard</h1>
@@ -29,7 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-email" element={<OtpVerification />} />
-          
+
           <Route element={<ProtectedRoute />}>
             <Route element={<AdminLayout />}>
               <Route path="/" element={<DashboardHome />} />

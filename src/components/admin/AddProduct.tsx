@@ -20,7 +20,7 @@ const AddProduct: React.FC = () => {
     const fetchCategories = async () => {
       try {
         const response = await categoryService.findAllCategories();
-        // Updated to match backend response: { data: { list: [...] } }
+
         setCategories(response?.data?.list || []);
       } catch (err) {
         console.error('Failed to fetch categories', err);
@@ -63,7 +63,7 @@ const AddProduct: React.FC = () => {
       setSuccess('Product added successfully!');
       setFormData({ name: '', description: '', price: '', qty: '', category: '' });
       setImages([]);
-      // Reset file input manually if needed
+
       const fileInput = document.getElementById('product-images') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
     } catch (err: any) {

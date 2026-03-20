@@ -8,14 +8,14 @@ const OtpVerification: React.FC = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [resending, setResending] = useState(false);
-  
+
   const inputRefs = [
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
   ];
-  
+
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -29,12 +29,12 @@ const OtpVerification: React.FC = () => {
 
   const handleChange = (index: number, value: string) => {
     if (isNaN(Number(value))) return;
-    
+
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
     setOtp(newOtp);
-    
-    // Move to next input if value is entered
+
+
     if (value && index < 3) {
       inputRefs[index + 1].current?.focus();
     }
@@ -50,15 +50,15 @@ const OtpVerification: React.FC = () => {
     e.preventDefault();
     const data = e.clipboardData.getData('text').trim();
     if (!/^\d+$/.test(data)) return;
-    
+
     const digits = data.split('').slice(0, 4);
     const newOtp = [...otp];
     digits.forEach((digit, index) => {
       newOtp[index] = digit;
     });
     setOtp(newOtp);
-    
-    // focus the last filled input or the next empty one
+
+
     const nextIndex = Math.min(digits.length, 3);
     inputRefs[nextIndex].current?.focus();
   };
@@ -70,7 +70,7 @@ const OtpVerification: React.FC = () => {
       setError('Please enter the full code');
       return;
     }
-    
+
     setLoading(true);
     setError('');
     try {
@@ -106,7 +106,7 @@ const OtpVerification: React.FC = () => {
           We've sent a 4-digit code to <br />
           <strong>{email}</strong>
         </p>
-        
+
         <form onSubmit={handleSubmit}>
           <div className="otp-input-container">
             {otp.map((digit, index) => (
@@ -134,15 +134,15 @@ const OtpVerification: React.FC = () => {
 
           <div className="navigation-link">
             Didn't receive code?{' '}
-            <button 
-              type="button" 
-              onClick={handleResend} 
+            <button
+              type="button"
+              onClick={handleResend}
               disabled={resending}
-              style={{ 
-                background: 'none', 
-                border: 'none', 
-                color: 'var(--primary-color)', 
-                fontWeight: '600', 
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--primary-color)',
+                fontWeight: '600',
                 cursor: 'pointer',
                 padding: 0
               }}
@@ -150,7 +150,7 @@ const OtpVerification: React.FC = () => {
               {resending ? 'Resending...' : 'Resend Code'}
             </button>
           </div>
-          
+
           <div className="navigation-link">
             <Link to="/signup">Back to Signup</Link>
           </div>

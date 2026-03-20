@@ -8,7 +8,7 @@ interface TopBarProps {
 const TopBar: React.FC<TopBarProps> = ({ onMenuClick }) => {
   const location = useLocation();
 
-  // Get page title from pathname
+
   const getPageTitle = (pathname: string) => {
     switch (pathname) {
       case '/': return 'Dashboard Overview';

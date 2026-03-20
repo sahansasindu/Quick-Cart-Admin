@@ -205,7 +205,7 @@ input:focus {
   margin-bottom: 24px;
 }
 
-/* Admin Layout & Responsive Design */
+
 .admin-layout {
   display: flex;
   min-height: 100vh;
@@ -220,7 +220,7 @@ input:focus {
   flex-direction: column;
   position: fixed;
   top: 80px;
-  /* Below TopBar */
+
   bottom: 0;
   left: 0;
   z-index: 1001;
@@ -303,10 +303,10 @@ input:focus {
   min-height: 100vh;
   margin-left: 260px;
   padding-top: 80px;
-  /* Space for fixed TopBar */
+
   transition: margin-left 0.3s ease;
   background-color: #f1f5f9;
-  /* Changed to visible gray */
+
 }
 
 .admin-main.collapsed {
@@ -385,7 +385,7 @@ input:focus {
   align-items: center;
 }
 
-/* Tablet Responsiveness (768px - 960px) */
+
 @media (max-width: 960px) and (min-width: 768px) {
   .sidebar {
     width: 80px;
@@ -417,7 +417,7 @@ input:focus {
   }
 }
 
-/* Mobile Responsiveness (below 768px) */
+
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
@@ -436,7 +436,7 @@ input:focus {
     width: 100%;
   }
 
-  /* menu-toggle-btn stays display: block */
+
 
   .top-bar-user-info {
     display: none;
@@ -447,7 +447,7 @@ input:focus {
   }
 }
 
-/* Admin Forms */
+
 .admin-form-card {
   background: white;
   padding: 32px;
@@ -489,7 +489,7 @@ select {
   font-size: 14px;
 }
 
-/* Product Management */
+
 .product-management-container {
   max-width: 1000px;
 }
@@ -567,7 +567,7 @@ select {
   opacity: 0.9;
 }
 
-/* Modal Styling */
+
 .modal-overlay {
   position: fixed;
   top: 0;

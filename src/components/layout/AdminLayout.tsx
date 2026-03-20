@@ -22,23 +22,23 @@ const AdminLayout: React.FC = () => {
   return (
     <div className="admin-layout">
       <TopBar onMenuClick={handleToggle} />
-      
-      <SideBar 
-        isOpen={isMobileMenuOpen} 
-        isCollapsed={isCollapsed} 
-        onClose={closeMobileMenu} 
+
+      <SideBar
+        isOpen={isMobileMenuOpen}
+        isCollapsed={isCollapsed}
+        onClose={closeMobileMenu}
       />
-      
+
       <div className={`admin-main ${isCollapsed ? 'collapsed' : ''}`}>
         <main className="admin-content">
           <Outlet />
         </main>
       </div>
-      
-      {/* Mobile Overlay */}
+
+
       {isMobileMenuOpen && (
-        <div 
-          className="modal-overlay" 
+        <div
+          className="modal-overlay"
           onClick={closeMobileMenu}
           style={{ zIndex: 1000, background: 'rgba(0,0,0,0.3)' }}
         ></div>
