@@ -1,4 +1,13 @@
 ﻿# Quick Cart Admin
+
+<img width="1656" height="605" alt="image" src="https://github.com/user-attachments/assets/64f39841-2183-4163-9d07-f6ed3dda4684" />
+
+
+
+
+
+
+ 
  
  ![Architecture Diagram](https://github.com/user-attachments/assets/8cdca14d-77a1-4df4-85a5-5f2f1ffe3e50)
 
