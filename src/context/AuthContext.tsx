@@ -17,7 +17,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     if (hasCookie('access_token')) {
       setIsAuthenticated(true);
-      // Here you could fetch user details if needed
+
     }
   }, []);
 

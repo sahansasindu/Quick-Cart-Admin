@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import Login from './components/security/Login';
 import Signup from './components/security/Signup';
+import OtpVerification from './components/security/OtpVerification';
 import ProtectedRoute from './components/security/ProtectedRoute';
 import AdminLayout from './components/layout/AdminLayout';
 import AddCategory from './components/admin/AddCategory';
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/verify-email" element={<OtpVerification />} />
           
           <Route element={<ProtectedRoute />}>
             <Route element={<AdminLayout />}>

@@ -15,15 +15,15 @@ const AddCategory: React.FC = () => {
     setError('');
     setSuccess('');
     try {
-      // Split countries by comma and trim whitespace
+
       const countriesArray = availableCountries.split(',').map(c => c.trim()).filter(c => c !== '');
-      
-      await categoryService.saveCategory({ 
-        categoryName, 
-        icon: { iconName: icon }, // Sending as an object as per schema
-        availableCountries: countriesArray 
+
+      await categoryService.saveCategory({
+        categoryName,
+        icon: { iconName: icon },
+        availableCountries: countriesArray
       });
-      
+
       setSuccess('Category added successfully!');
       setCategoryName('');
       setIcon('');

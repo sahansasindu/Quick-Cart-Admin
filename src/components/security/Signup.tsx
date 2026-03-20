@@ -33,7 +33,7 @@ const Signup: React.FC = () => {
         formData.firstName,
         formData.lastName
       );
-      navigate('/login');
+      navigate(`/verify-email?email=${formData.email}`);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Registration failed');
     } finally {
