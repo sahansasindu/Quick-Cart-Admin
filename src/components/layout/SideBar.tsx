@@ -14,11 +14,8 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen, isCollapsed, onClose }) => {
   const navItems = [
     { to: '/', label: 'Dashboard', icon: <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path> },
     { to: '/manage-categories', label: 'Categories', icon: <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path> },
-    { to: '/add-category', label: 'Add Category', icon: <path d="M12 5v14M5 12h14"></path> },
     { to: '/manage-products', label: 'Products', icon: <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path> },
-    { to: '/add-product', label: 'Add Product', icon: <path d="M12 5v14M5 12h14"></path> },
     { to: '/manage-discounts', label: 'Discounts', icon: <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM7 7h.01"></path> },
-    { to: '/add-discount', label: 'Add Discount', icon: <path d="M12 5v14M5 12h14"></path> },
   ];
 
   return (

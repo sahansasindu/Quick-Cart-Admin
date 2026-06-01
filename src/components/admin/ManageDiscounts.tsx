@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { discountService } from '../../services/discountService';
+import AddDiscountModal from './AddDiscountModal';
+import Button from '../ui/Button';
+import SearchBar from '../ui/SearchBar';
+import Table from '../ui/Table';
 
 const ManageDiscounts: React.FC = () => {
   const [discounts, setDiscounts] = useState<any[]>([]);
@@ -17,6 +21,8 @@ const ManageDiscounts: React.FC = () => {
     EndDate: '',
     active: true,
   });
+
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const fetchDiscounts = async () => {
     setLoading(true);
@@ -82,55 +88,43 @@ const ManageDiscounts: React.FC = () => {
     }
   };
 
+
   return (
     <div className="product-management-container">
       <div className="table-header">
         <h1>Manage Discounts</h1>
-        <input
-          type="text"
-          placeholder="Search discounts..."
-          className="search-bar"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+        <div className="table-actions">
+          <SearchBar
+            placeholder="Search discounts..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <Button variant="primary" onClick={() => setIsAddModalOpen(true)}>Add Discount</Button>
+        </div>
       </div>
 
       {loading && <div className="loading">Loading discounts...</div>}
       {error && <div className="error-message">{error}</div>}
 
-      <div className="product-table-wrapper">
-        <table className="product-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Percentage</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {discounts.map((discount) => (
-              <tr key={discount._id}>
-                <td>{discount.discountName}</td>
-                <td>{discount.percentage}%</td>
-                <td>{discount.startDate ? new Date(discount.startDate).toLocaleDateString() : 'N/A'}</td>
-                <td>{discount.EndDate ? new Date(discount.EndDate).toLocaleDateString() : 'N/A'}</td>
-                <td>
-                  <span className={`status-badge ${discount.active ? 'active' : 'inactive'}`}>
-                    {discount.active ? 'Active' : 'Inactive'}
-                  </span>
-                </td>
-                <td>
-                  <button className="action-btn btn-edit" onClick={() => openEditModal(discount)}>Edit</button>
-                  <button className="action-btn btn-delete" onClick={() => handleDelete(discount._id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table headers={['Name', 'Percentage', 'Start Date', 'End Date', 'Status', 'Actions']}>
+        {discounts.map((discount) => (
+          <tr key={discount._id}>
+            <td>{discount.discountName}</td>
+            <td>{discount.percentage}%</td>
+            <td>{discount.startDate ? new Date(discount.startDate).toLocaleDateString() : 'N/A'}</td>
+            <td>{discount.EndDate ? new Date(discount.EndDate).toLocaleDateString() : 'N/A'}</td>
+            <td>
+              <span className={`status-badge ${discount.active ? 'active' : 'inactive'}`}>
+                {discount.active ? 'Active' : 'Inactive'}
+              </span>
+            </td>
+            <td>
+              <Button variant="edit" onClick={() => openEditModal(discount)}>Edit</Button>
+              <Button variant="delete" onClick={() => handleDelete(discount._id)}>Delete</Button>
+            </td>
+          </tr>
+        ))}
+      </Table>
 
       <div className="pagination">
         {Array.from({ length: totalPages }, (_, i) => (
@@ -206,6 +200,15 @@ const ManageDiscounts: React.FC = () => {
           </div>
         </div>
       )}
+
+      <AddDiscountModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={() => {
+          setIsAddModalOpen(false);
+          fetchDiscounts();
+        }}
+      />
     </div>
   );
 };

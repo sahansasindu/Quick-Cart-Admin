@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { categoryService } from '../../services/categoryService';
+import AddCategoryModal from './AddCategoryModal';
+import Button from '../ui/Button';
+import SearchBar from '../ui/SearchBar';
+import Table from '../ui/Table';
 
 const ManageCategories: React.FC = () => {
   const [categories, setCategories] = useState<any[]>([]);
@@ -11,6 +15,8 @@ const ManageCategories: React.FC = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<any>(null);
   const [editCategoryName, setEditCategoryName] = useState('');
+
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -62,39 +68,30 @@ const ManageCategories: React.FC = () => {
     <div className="product-management-container">
       <div className="table-header">
         <h1>Manage Categories</h1>
-        <input
-          type="text"
-          placeholder="Search categories..."
-          className="search-bar"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+        <div className="table-actions">
+          <SearchBar
+            placeholder="Search categories..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <Button variant="primary" onClick={() => setIsAddModalOpen(true)}>Add Category</Button>
+        </div>
       </div>
 
       {loading && <div className="loading">Loading categories...</div>}
       {error && <div className="error-message">{error}</div>}
 
-      <div className="product-table-wrapper">
-        <table className="product-table">
-          <thead>
-            <tr>
-              <th>Category Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((cat) => (
-              <tr key={cat._id}>
-                <td>{cat.categoryName}</td>
-                <td>
-                  <button className="action-btn btn-edit" onClick={() => openEditModal(cat)}>Edit</button>
-                  <button className="action-btn btn-delete" onClick={() => handleDelete(cat._id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table headers={['Category Name', 'Actions']}>
+        {categories.map((cat) => (
+          <tr key={cat._id}>
+            <td>{cat.categoryName}</td>
+            <td>
+              <Button variant="edit" onClick={() => openEditModal(cat)}>Edit</Button>
+              <Button variant="delete" onClick={() => handleDelete(cat._id)}>Delete</Button>
+            </td>
+          </tr>
+        ))}
+      </Table>
 
       <div className="pagination">
         {Array.from({ length: totalPages }, (_, i) => (
@@ -128,6 +125,15 @@ const ManageCategories: React.FC = () => {
           </div>
         </div>
       )}
+
+      <AddCategoryModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={() => {
+          setIsAddModalOpen(false);
+          fetchCategories();
+        }}
+      />
     </div>
   );
 };

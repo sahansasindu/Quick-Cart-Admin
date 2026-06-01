@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { productService } from '../../services/productService';
 import { categoryService } from '../../services/categoryService';
+import AddProductModal from './AddProductModal';
+import Button from '../ui/Button';
+import SearchBar from '../ui/SearchBar';
+import Table from '../ui/Table';
 
 const ManageProducts: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -20,6 +24,8 @@ const ManageProducts: React.FC = () => {
     categoryId: '',
   });
   const [editImages, setEditImages] = useState<File[]>([]);
+
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -110,53 +116,40 @@ const ManageProducts: React.FC = () => {
     <div className="product-management-container">
       <div className="table-header">
         <h1>Manage Products</h1>
-        <input
-          type="text"
-          placeholder="Search products..."
-          className="search-bar"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+        <div className="table-actions">
+          <SearchBar
+            placeholder="Search products..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <Button variant="primary" onClick={() => setIsAddModalOpen(true)}>Add Product</Button>
+        </div>
       </div>
 
       {loading && <div className="loading">Loading products...</div>}
       {error && <div className="error-message">{error}</div>}
 
-      <div className="product-table-wrapper">
-        <table className="product-table">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product._id}>
-                <td>
-                  <img
-                    src={product.images && product.images.length > 0 ? `http://localhost:9091${product.images[0]}` : 'https://via.placeholder.com/40'}
-                    alt={product.productName}
-                    className="product-image-sm"
-                  />
-                </td>
-                <td>{product.productName}</td>
-                <td>{product.categoryId}</td>
-                <td>${product.actualPrice}</td>
-                <td>{product.qty}</td>
-                <td>
-                  <button className="action-btn btn-edit" onClick={() => openEditModal(product)}>Edit</button>
-                  <button className="action-btn btn-delete" onClick={() => handleDelete(product._id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table headers={['Image', 'Name', 'Category', 'Price', 'Qty', 'Actions']}>
+        {products.map((product) => (
+          <tr key={product._id}>
+            <td>
+              <img
+                src={product.images && product.images.length > 0 ? `http://localhost:9091${product.images[0]}` : 'https://via.placeholder.com/40'}
+                alt={product.productName}
+                className="product-image-sm"
+              />
+            </td>
+            <td>{product.productName}</td>
+            <td>{product.categoryId}</td>
+            <td>${product.actualPrice}</td>
+            <td>{product.qty}</td>
+            <td>
+              <Button variant="edit" onClick={() => openEditModal(product)}>Edit</Button>
+              <Button variant="delete" onClick={() => handleDelete(product._id)}>Delete</Button>
+            </td>
+          </tr>
+        ))}
+      </Table>
 
       <div className="pagination">
         {Array.from({ length: totalPages }, (_, i) => (
@@ -248,6 +241,16 @@ const ManageProducts: React.FC = () => {
           </div>
         </div>
       )}
+
+      <AddProductModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={() => {
+          setIsAddModalOpen(false);
+          fetchProducts();
+        }}
+        categories={categories}
+      />
     </div>
   );
 };
