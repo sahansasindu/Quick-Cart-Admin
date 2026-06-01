@@ -1,6 +1,6 @@
 ﻿# Quick Cart Admin
+<img width="1899" height="906" alt="image" src="https://github.com/user-attachments/assets/31e07998-7f04-49bc-b4e6-4ce6c9fccdae" />
 
-<img width="1656" height="605" alt="image" src="https://github.com/user-attachments/assets/64f39841-2183-4163-9d07-f6ed3dda4684" />
 
 
 
